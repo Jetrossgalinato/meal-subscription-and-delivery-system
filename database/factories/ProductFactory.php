@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Product;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
@@ -17,10 +18,10 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->word(),
-            'description' => fake()->paragraph(),
-            'price' => fake()->randomFloat(2, 1, 1000),
-            'image' => fake()->imageUrl(640, 480),
+            'name' => $this->faker->word(),
+            'price' => $this->faker->randomFloat(2, 10, 100),
+            'description' => $this->faker->sentence(),
+            'image' => $this->faker->imageUrl(),
         ];
     }
 }
