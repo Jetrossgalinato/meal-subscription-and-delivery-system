@@ -10,13 +10,36 @@ class UserController extends Controller
 {
     public function getUserDetails($id)
     {
-        // Fetch user details by ID
         $user = User::find($id);
 
         if (!$user) {
             return response()->json(['message' => 'User not found'], 404);
         }
 
-        return response()->json($user, 200);
+        return response()->json([
+            'name' => $user->name,
+            'email' => $user->email,
+            'avatar' => $user->avatar ? asset('storage/' . $user->avatar) : null, // Return full URL for avatar
+        ], 200);
+    }
+    public function updateUser(Request $request, $id)
+    {
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+
+        if ($request->hasFile('avatar')) {
+            $avatarPath = $request->file('avatar')->store('avatars', 'public');
+            $user->avatar = $avatarPath;
+        }
+
+        $user->save();
+
+        return response()->json(['message' => 'Profile updated successfully']);
     }
 }
