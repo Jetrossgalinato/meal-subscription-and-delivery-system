@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -44,6 +45,14 @@ class UserController extends Controller
         if ($request->hasFile('avatar')) {
             $avatarPath = $request->file('avatar')->store('avatars', 'public');
             $user->avatar = $avatarPath;
+        }
+
+        // Handle password update
+        if ($request->filled('current_password') && $request->filled('new_password')) {
+            if (!Hash::check($request->current_password, $user->password)) {
+                return response()->json(['message' => 'Current password is incorrect'], 400);
+            }
+            $user->password = Hash::make($request->new_password);
         }
 
         $user->save();
