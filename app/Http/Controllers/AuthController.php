@@ -40,7 +40,8 @@ class AuthController extends Controller
         ]);
         // Attempt to log in the user
         if (Auth::attempt($credentials)) {
-            $user = User::find($auth->id)->get();
+            $user = Auth::user();
+            $token = $user->createToken('auth_token')->plainTextToken;
 
             return response()->json([
                 'message' => 'Login successful',
