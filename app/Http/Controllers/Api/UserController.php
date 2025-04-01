@@ -33,9 +33,14 @@ class UserController extends Controller
             return response()->json(['message' => 'User not found'], 404);
         }
 
+        // Update user fields
         $user->name = $request->input('name');
         $user->email = $request->input('email');
+        $user->dietary_preferences = $request->input('dietary_preferences');
+        $user->allergies = $request->input('allergies');
+        $user->delivery_address = $request->input('delivery_address');
 
+        // Handle avatar upload
         if ($request->hasFile('avatar')) {
             $avatarPath = $request->file('avatar')->store('avatars', 'public');
             $user->avatar = $avatarPath;
