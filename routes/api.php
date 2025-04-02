@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController; //route for creating user
 use App\Http\Controllers\Api\UserController; //route for getting user details
 use App\Http\Controllers\Api\MealController; //route for getting meals
+use App\Http\Controllers\Api\AdminController; //route for admin dashboard
 
 
 // Route::get('/user', function (Request $request) {
@@ -20,3 +21,6 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/user/{id}', [UserController::class, 'getUserDetails']);
 Route::post('/user/{id}/update', [UserController::class, 'updateUser']);
 Route::get('/meals', [MealController::class, 'getMeals']);
+Route::middleware(['admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'index']);
+});
