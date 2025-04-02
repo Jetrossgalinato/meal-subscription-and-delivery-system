@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\PaymentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController; //route for creating user
 use App\Http\Controllers\Api\UserController; //route for getting user details
+use App\Http\Controllers\Api\MealController; //route for getting meals
 
 
 // Route::get('/user', function (Request $request) {
@@ -18,3 +19,4 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/user/{id}', [UserController::class, 'getUserDetails']);
 Route::post('/user/{id}/update', [UserController::class, 'updateUser']);
+Route::get('/meals', [MealController::class, 'getMeals']);
