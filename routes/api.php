@@ -21,6 +21,4 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/user/{id}', [UserController::class, 'getUserDetails']);
 Route::post('/user/{id}/update', [UserController::class, 'updateUser']);
 Route::get('/meals', [MealController::class, 'getMeals']);
-Route::middleware(['admin'])->group(function () {
-    Route::get('/admin/dashboard', [AdminController::class, 'index']);
-});
+Route::get('/admin/dashboard', [AdminController::class, 'index']);;
