@@ -5,12 +5,19 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Meal; // Import the Meal model
+use Illuminate\Support\Facades\Storage;
 
 class MealController extends Controller
 {
     public function getMeals()
     {
         $meals = Meal::all();
+
+        // Append the full URL to the image path
+        $meals->transform(function ($meal) {
+            $meal->image = url('storage/' . $meal->image); // Assuming images are stored in the 'storage' directory
+            return $meal;
+        });
 
         return response()->json($meals);
     }
