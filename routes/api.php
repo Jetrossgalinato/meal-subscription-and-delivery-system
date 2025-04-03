@@ -22,3 +22,4 @@ Route::get('/user/{id}', [UserController::class, 'getUserDetails']);
 Route::post('/user/{id}/update', [UserController::class, 'updateUser']);
 Route::get('/meals', [MealController::class, 'getMeals']);
 Route::get('/admin/dashboard', [AdminController::class, 'index']);;
+Route::post('/meals', [MealController::class, 'store']);
