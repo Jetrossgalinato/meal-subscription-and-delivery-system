@@ -1,5 +1,5 @@
 <?php
-// filepath: c:\xampp\htdocs\IT-111 Final Project\meal-subscription\app\Models\Cart.php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,8 +11,15 @@ class Cart extends Model
 
     protected $fillable = ['user_id', 'meal_id', 'quantity'];
 
+    // Relationship with the Meal model
     public function meal()
     {
         return $this->belongsTo(Meal::class);
+    }
+
+    // Relationship with the User model
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
