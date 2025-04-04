@@ -8,7 +8,7 @@ use App\Http\Controllers\AuthController; //route for creating user
 use App\Http\Controllers\Api\UserController; //route for getting user details
 use App\Http\Controllers\Api\MealController; //route for getting meals
 use App\Http\Controllers\Api\AdminController; //route for admin dashboard
-
+use App\Http\Controllers\Api\CartController; //route for cart
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -24,3 +24,8 @@ Route::get('/meals', [MealController::class, 'getMeals']);
 Route::get('/admin/dashboard', [AdminController::class, 'index']);;
 Route::post('/meals', [MealController::class, 'store']);
 Route::post('pay-by-stripe', [PaymentController::class, 'payByStripe']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/cart', [CartController::class, 'addToCart']); // Add meal to cart
+    Route::get('/cart', [CartController::class, 'getCartItems']); // Get all cart items
+    Route::delete('/cart/{id}', [CartController::class, 'removeFromCart']); // Remove meal from cart
+});
