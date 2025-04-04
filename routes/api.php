@@ -23,3 +23,4 @@ Route::post('/user/{id}/update', [UserController::class, 'updateUser']);
 Route::get('/meals', [MealController::class, 'getMeals']);
 Route::get('/admin/dashboard', [AdminController::class, 'index']);;
 Route::post('/meals', [MealController::class, 'store']);
+Route::post('pay-by-stripe', [PaymentController::class, 'payByStripe']);
