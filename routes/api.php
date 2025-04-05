@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\UserController; //route for getting user details
 use App\Http\Controllers\Api\MealController; //route for getting meals
 use App\Http\Controllers\Api\AdminController; //route for admin dashboard
 use App\Http\Controllers\Api\CartController; //route for cart
+use App\Models\Meal;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -28,4 +29,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/cart', [CartController::class, 'addToCart']); // Add meal to cart
     Route::get('/cart', [CartController::class, 'getCartItems']); // Get all cart items
     Route::delete('/cart/{id}', [CartController::class, 'removeFromCart']); // Remove meal from cart
+});
+Route::get('/test-meals', function () {
+    return Meal::all(); // this will now include `image_url` per item
 });
