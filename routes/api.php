@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\MealController; //route for getting meals
 use App\Http\Controllers\Api\AdminController; //route for admin dashboard
 use App\Http\Controllers\Api\CartController; //route for cart
 use App\Models\Meal;
+use App\Http\Controllers\CheckoutController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -33,3 +34,4 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::get('/test-meals', function () {
     return Meal::all(); // this will now include `image_url` per item
 });
+Route::middleware('auth:sanctum')->post('/checkout', [CheckoutController::class, 'checkout']);
