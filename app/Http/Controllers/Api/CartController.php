@@ -22,10 +22,8 @@ class CartController extends Controller
             [
                 'user_id' => auth()->id(), // Assuming the user is authenticated
                 'meal_id' => $validated['meal_id'],
+                'quantity' => $validated['quantity'],
             ],
-            [
-                'quantity' => DB::raw("quantity + {$validated['quantity']}"),
-            ]
         );
 
         return response()->json(['message' => 'Meal added to cart successfully!', 'cartItem' => $cartItem]);
