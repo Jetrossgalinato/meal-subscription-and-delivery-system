@@ -16,6 +16,8 @@ class CheckoutController extends Controller
             $user = auth()->user();
             $validated = $request->validate([
                 'items' => 'required|array',
+                'location' => 'required|string',
+                'delivery_fee' => 'required|numeric',
             ]);
 
             // Save order
@@ -56,6 +58,16 @@ class CheckoutController extends Controller
                 ];
             }
 
+            // Add delivery fee as a line item
+            $lineItems[] = [
+                'price_data' => [
+                    'currency' => 'usd',
+                    'product_data' => ['name' => 'Delivery Fee'],
+                    'unit_amount' => intval($validated['delivery_fee'] * 100), // Convert to cents
+                ],
+                'quantity' => 1, // Only one delivery fee
+            ];
+
             $session = Session::create([
                 'payment_method_types' => ['card'],
                 'line_items' => $lineItems,
@@ -65,6 +77,7 @@ class CheckoutController extends Controller
                 'metadata' => [
                     'order_id' => $order,
                     'user_id' => $user->id,
+                    'location' => $validated['location'], // Include location in metadata
                 ],
             ]);
 
