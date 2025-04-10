@@ -16,13 +16,11 @@ class CheckoutController extends Controller
             $user = auth()->user();
             $validated = $request->validate([
                 'items' => 'required|array',
-                'location' => 'required|string',
             ]);
 
             // Save order
             $order = DB::table('orders')->insertGetId([
                 'user_id' => $user->id,
-                'location' => $validated['location'],
                 'status' => 'unpaid',
                 'created_at' => now(),
                 'updated_at' => now(),
