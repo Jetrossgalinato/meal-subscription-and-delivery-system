@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
+
 
 class CheckoutController extends Controller
 {
@@ -68,6 +70,16 @@ class CheckoutController extends Controller
                     'unit_amount' => intval($validated['delivery_fee'] * 100), // Convert to cents
                 ],
                 'quantity' => 1, // Only one delivery fee
+            ];
+            $lineItems[] = [
+                'price_data' => [
+                    'currency' => 'usd',
+                    'product_data' => [
+                        'name' => 'Deliver to: ' . Str::limit($address, 50), // Truncate to avoid Stripe errors
+                    ],
+                    'unit_amount' => 0, // Free line item
+                ],
+                'quantity' => 1,
             ];
 
             $session = Session::create([
