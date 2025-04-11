@@ -24,6 +24,7 @@ class CheckoutController extends Controller
             $order = DB::table('orders')->insertGetId([
                 'user_id' => $user->id,
                 'status' => 'unpaid',
+                'delivery_address' => $validated['location'],
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
@@ -41,6 +42,7 @@ class CheckoutController extends Controller
 
             // Stripe setup
             Stripe::setApiKey(env('STRIPE_SECRET'));
+            $address = $validated['location'];
 
             $lineItems = [];
             foreach ($validated['items'] as $item) {
@@ -77,7 +79,7 @@ class CheckoutController extends Controller
                 'metadata' => [
                     'order_id' => $order,
                     'user_id' => $user->id,
-                    'location' => $validated['location'], // Include location in metadata
+                    'delivery_address' => $address,
                 ],
             ]);
 
