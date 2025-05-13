@@ -18,21 +18,21 @@ class MealSeeder extends Seeder
             'name' => 'Grilled Chicken Salad',
             'description' => 'A healthy salad with grilled chicken, fresh greens, and a light vinaigrette.',
             'price' => 12.99,
-            'image' => 'images/grilled-chicken-salad.jpg',
+            'image' => 'images/chickensalad.jpeg', // Relative path from the public directory
         ]);
 
         Meal::create([
             'name' => 'Spaghetti Bolognese',
             'description' => 'Classic Italian pasta with a rich meat sauce.',
             'price' => 15.99,
-            'image' => 'images/spaghetti-bolognese.jpg',
+            'image' => 'images/spagbolognese.jpg', // Relative path from the public directory
         ]);
 
         Meal::create([
             'name' => 'Vegetarian Pizza',
             'description' => 'A delicious pizza topped with fresh vegetables and mozzarella cheese.',
             'price' => 10.99,
-            'image' => 'images/vegetarian-pizza.jpg',
+            'image' => 'images/vegetarianpizza.jpg', // Relative path from the public directory
         ]);
     }
 }
