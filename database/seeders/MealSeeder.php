@@ -1,5 +1,7 @@
 <?php
-
+//place the images in storage/app/public/images
+// and run php artisan storage:link to create a symbolic link from public/storage to storage/app/public
+// to access the images in the public directory
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
